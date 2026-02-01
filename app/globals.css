@@ -1,0 +1,139 @@
+@import "tailwindcss";
+
+/* Reset خفيف */
+html,
+body {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+    sans-serif;
+}
+
+/* ===== Background (زي الصورة) ===== */
+.bg-space {
+  min-height: 100vh;
+  background-image: url("/bg.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* ===== Glassmorphism Card ===== */
+.glass-card {
+  width: 320px;
+  padding: 32px 20px;
+  border-radius: 26px;
+  background: rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.45);
+  text-align: center;
+}
+
+/* ===== Reward Icon ===== */
+.logo img {
+  width: 110px;
+  margin: 0 auto 28px;
+  display: block;
+}
+
+/* ===== Button ===== */
+.reward-btn {
+  width: 100%;
+  padding: 16px;
+  font-size: 20px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #7b2cbf, #9d4edd);
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.reward-btn:active {
+  transform: scale(0.96);
+}
+
+.reward-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ===== Telegram ID ===== */
+.user-id {
+  margin-top: 16px;
+  font-size: 12px;
+  opacity: 0.7;
+}
+.coins {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 18px;
+  color: #fff;
+}
+.withdraw-box {
+  margin-top: 20px;
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.withdraw-box h3 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.withdraw-box label {
+  font-size: 13px;
+  opacity: 0.8;
+}
+
+.withdraw-box input,
+.withdraw-box select {
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  outline: none;
+}
+
+.withdraw-box input::placeholder {
+  color: #aaa;
+}
+
+.confirm-btn {
+  margin-top: 10px;
+  padding: 10px;
+  background: #16a34a;
+  border-radius: 8px;
+  border: none;
+  color: white;
+  font-weight: bold;
+}
+
+.cancel-btn {
+  padding: 8px;
+  background: transparent;
+  color: #f87171;
+  border: none;
+}
+
+.withdraw-btn {
+  margin-top: 10px;
+  padding: 10px;
+  background: #2563eb;
+  border-radius: 8px;
+  border: none;
+  color: white;
+  font-weight: bold;
+}
+

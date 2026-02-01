@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 declare global {
   interface Window {
     Telegram: any;
-    show_10544894: () => Promise<void>;
+    show_10552679: () => Promise<void>;
   }
 }
 

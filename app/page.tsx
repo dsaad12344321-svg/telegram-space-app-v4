@@ -90,8 +90,8 @@ export default function Home() {
 
     const coinsNumber = Number(withdrawCoins);
 
-    if (!coinsNumber || coinsNumber < 5000) {
-      alert("Minimum withdraw is 5000 coins");
+    if (!coinsNumber || coinsNumber < 10) {
+      alert("Minimum withdraw is 10 coins");
       return;
     }
 
@@ -158,7 +158,7 @@ export default function Home() {
             <input
               type="text"
               inputMode="numeric"
-              placeholder="Minimum 5000"
+              placeholder="Minimum 10"
               value={withdrawCoins}
               onChange={(e) =>
                 handleWithdrawCoinsChange(e.target.value)

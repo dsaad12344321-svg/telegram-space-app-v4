@@ -16,7 +16,7 @@ export default function Home() {
 
   // Withdraw
   const [showWithdraw, setShowWithdraw] = useState(false);
-  const [withdrawCoins, setWithdrawCoins] = useState<string>(""); // ✅ string
+  const [withdrawCoins, setWithdrawCoins] = useState<number>(0);
   const [walletType, setWalletType] = useState("Vodafone Cash");
   const [walletNumber, setWalletNumber] = useState("");
   const [withdrawLoading, setWithdrawLoading] = useState(false);
@@ -69,37 +69,32 @@ export default function Home() {
     }
   };
 
-  // 🔒 Strict coins input handler
+  // 🔒 Coins input handler
   const handleWithdrawCoinsChange = (value: string) => {
     let clean = value.replace(/[^0-9]/g, "");
-
-    if (clean === "") {
-      setWithdrawCoins("");
-      return;
-    }
-
-    if (clean.length > 1 && clean.startsWith("0")) {
-      clean = clean.replace(/^0+/, "");
-    }
-
-    setWithdrawCoins(clean);
+    if (clean.startsWith("0")) clean = clean.replace(/^0+/, "");
+    setWithdrawCoins(clean ? Number(clean) : 0);
   };
 
   const submitWithdraw = async () => {
-    if (!telegramId) return;
-
-    const coinsNumber = Number(withdrawCoins);
-
+    console.log("CLICKED CONFIRM");
+    if (!telegramId){
+      console.log("NO TELEGRAM ID");
+     return;
+    }
+      const coinsNumber = Number(withdrawCoins);
+      console.log("COINS:", coinsNumber);
+      console.log("WALLET:", walletNumber);
     if (!coinsNumber || coinsNumber < 10) {
       alert("Minimum withdraw is 10 coins");
       return;
-    }
+  }
 
     if (!walletNumber) {
       alert("Please enter wallet number");
       return;
     }
-
+    console.log("SENDING REQUEST...");
     try {
       setWithdrawLoading(true);
 
@@ -108,7 +103,7 @@ export default function Home() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           telegramId,
-          coins: coinsNumber,
+          coins: withdrawCoins,
           walletType,
           walletNumber,
         }),
@@ -119,7 +114,7 @@ export default function Home() {
       if (data.success) {
         alert("Withdraw request sent ✅\nProcessing within 3 working days");
         setShowWithdraw(false);
-        setWithdrawCoins("");
+        setWithdrawCoins(0);
         setWalletNumber("");
         fetchCoins(telegramId);
       } else {
@@ -150,6 +145,7 @@ export default function Home() {
 
         {telegramId && <p className="user-id">ID: {telegramId}</p>}
 
+        {/* Withdraw Box */}
         {showWithdraw && (
           <div className="withdraw-box">
             <h3>Withdraw Coins</h3>
@@ -159,7 +155,7 @@ export default function Home() {
               type="text"
               inputMode="numeric"
               placeholder="Minimum 10"
-              value={withdrawCoins}
+              value={withdrawCoins === 0 ? "" : withdrawCoins}
               onChange={(e) =>
                 handleWithdrawCoinsChange(e.target.value)
               }

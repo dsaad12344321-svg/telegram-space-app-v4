@@ -16,7 +16,7 @@ export default function Home() {
 
   // Withdraw states
   const [showWithdraw, setShowWithdraw] = useState(false);
-  const [withdrawCoins, setWithdrawCoins] = useState(5000);
+    const [withdrawCoins, setWithdrawCoins] = useState(0);
   const [walletType, setWalletType] = useState("Vodafone Cash");
   const [walletNumber, setWalletNumber] = useState("");
   const [withdrawLoading, setWithdrawLoading] = useState(false);

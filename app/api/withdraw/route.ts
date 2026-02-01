@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { supabaseServer } from "@/lib/supabase-server";
 
-const MIN_WITHDRAW = 10;
+const MIN_WITHDRAW = 5000;
 
 async function sendTelegramMessage(text: string) {
   const token = process.env.TELEGRAM_BOT_TOKEN!;
@@ -28,7 +28,7 @@ export async function POST(req: Request) {
 
     if (coins < MIN_WITHDRAW) {
       return NextResponse.json(
-        { error: "Minimum withdraw is 10 coins" },
+        { error: "Minimum withdraw is 5000 coins" },
         { status: 400 }
       );
     }
@@ -77,4 +77,5 @@ export async function POST(req: Request) {
     );
   }
 }
+
 

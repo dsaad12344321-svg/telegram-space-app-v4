@@ -73,7 +73,7 @@ export default function Home() {
   const handleWithdrawCoinsChange = (value: string) => {
     let clean = value.replace(/[^0-9]/g, "");
     if (clean.startsWith("0")) clean = clean.replace(/^0+/, "");
-    setWithdrawCoins(clean ? Number(clean) : 0);
+    setWithdrawCoins(clean ? Number(clean) : '');
   };
 
   const submitWithdraw = async () => {

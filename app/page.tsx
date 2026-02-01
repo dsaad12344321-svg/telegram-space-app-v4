@@ -16,7 +16,7 @@ export default function Home() {
 
   // Withdraw
   const [showWithdraw, setShowWithdraw] = useState(false);
-  const [withdrawCoins, setWithdrawCoins] = useState<number>(0);
+  const [withdrawCoins, setWithdrawCoins] = useState<string>(""); // ✅ string
   const [walletType, setWalletType] = useState("Vodafone Cash");
   const [walletNumber, setWalletNumber] = useState("");
   const [withdrawLoading, setWithdrawLoading] = useState(false);
@@ -69,17 +69,28 @@ export default function Home() {
     }
   };
 
-  // 🔒 Coins input handler
+  // 🔒 Strict coins input handler
   const handleWithdrawCoinsChange = (value: string) => {
     let clean = value.replace(/[^0-9]/g, "");
-    if (clean.startsWith("0")) clean = clean.replace(/^0+/, "");
-    setWithdrawCoins(clean ? Number(clean) : '');
+
+    if (clean === "") {
+      setWithdrawCoins("");
+      return;
+    }
+
+    if (clean.length > 1 && clean.startsWith("0")) {
+      clean = clean.replace(/^0+/, "");
+    }
+
+    setWithdrawCoins(clean);
   };
 
   const submitWithdraw = async () => {
     if (!telegramId) return;
 
-    if (withdrawCoins < 5000) {
+    const coinsNumber = Number(withdrawCoins);
+
+    if (!coinsNumber || coinsNumber < 5000) {
       alert("Minimum withdraw is 5000 coins");
       return;
     }
@@ -97,7 +108,7 @@ export default function Home() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           telegramId,
-          coins: withdrawCoins,
+          coins: coinsNumber,
           walletType,
           walletNumber,
         }),
@@ -108,7 +119,7 @@ export default function Home() {
       if (data.success) {
         alert("Withdraw request sent ✅\nProcessing within 3 working days");
         setShowWithdraw(false);
-        setWithdrawCoins(0);
+        setWithdrawCoins("");
         setWalletNumber("");
         fetchCoins(telegramId);
       } else {
@@ -139,7 +150,6 @@ export default function Home() {
 
         {telegramId && <p className="user-id">ID: {telegramId}</p>}
 
-        {/* Withdraw Box */}
         {showWithdraw && (
           <div className="withdraw-box">
             <h3>Withdraw Coins</h3>
@@ -149,7 +159,7 @@ export default function Home() {
               type="text"
               inputMode="numeric"
               placeholder="Minimum 5000"
-              value={withdrawCoins === 0 ? "" : withdrawCoins}
+              value={withdrawCoins}
               onChange={(e) =>
                 handleWithdrawCoinsChange(e.target.value)
               }

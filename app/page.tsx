@@ -51,7 +51,7 @@ export default function Home() {
 
     try {
       setLoading(true);
-      await window.show_10544894();
+      await window.show_10552679();
 
       const res = await fetch("/api/coins", {
         method: "POST",
@@ -85,8 +85,8 @@ export default function Home() {
       const coinsNumber = Number(withdrawCoins);
       console.log("COINS:", coinsNumber);
       console.log("WALLET:", walletNumber);
-    if (!coinsNumber || coinsNumber < 10) {
-      alert("Minimum withdraw is 10 coins");
+    if (!coinsNumber || coinsNumber < 5000) {
+      alert("Minimum withdraw is 5000 coins");
       return;
   }
 
@@ -154,7 +154,7 @@ export default function Home() {
             <input
               type="text"
               inputMode="numeric"
-              placeholder="Minimum 10"
+              placeholder="Minimum 5000"
               value={withdrawCoins === 0 ? "" : withdrawCoins}
               onChange={(e) =>
                 handleWithdrawCoinsChange(e.target.value)

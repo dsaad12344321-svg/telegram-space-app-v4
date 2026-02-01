@@ -14,8 +14,8 @@ export default function RootLayout({
         {/* Monetag SDK */}
         <script
           src="//libtl.com/sdk.js"
-          data-zone="10544894"
-          data-sdk="show_10544894"
+          data-zone="10552679"
+          data-sdk="show_10552679"
         ></script>
       </head>
       <body>{children}</body>
